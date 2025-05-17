@@ -4,10 +4,11 @@ import { useRouter } from 'expo-router';
 import BackgroundLayer from '../components/BackgroundLayer';
 import StyleCard from '../components/StyleCard';
 import CreateButton from '../components/CreateButton';
-import { createGenerationRequest, updateGenerationStatus } from '../utils/firestoreHelpers';
+import { createGenerationRequest, getGenerationResult, updateGenerationStatus } from '../utils/firestoreHelpers';
 import SurpriseIcon from '../assets/images/surprise.png';
 import InputForm from '@/components/InputForm';
 import StatusChip from '@/components/StatusChip';
+import MockImage from '../assets/images/mockImage.jpg'
 
 const logoStyles = [
   { id: 'no-style', label: 'No Style', icon: require('../assets/icons/no-style.png') },
@@ -30,6 +31,7 @@ export default function InputScreen() {
   const [docId, setDocId] = useState(null);
   const router = useRouter();
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [resultImage, setResultImage] = useState(null);
 
   const handleSurpriseMe = () => {
     const random = samplePrompts[Math.floor(Math.random() * samplePrompts.length)];
@@ -43,6 +45,7 @@ export default function InputScreen() {
     }
 
     setStatus('processing');
+    setResultImage(null);
 
     const id = await createGenerationRequest(prompt, selectedStyle);
     setDocId(id);
@@ -50,9 +53,18 @@ export default function InputScreen() {
     const delay = Math.floor(Math.random() * 30 + 30) * 1000;
 
     setTimeout(async () => {
-      const mockImageUrl = 'https://via.placeholder.com/300x200.png?text=Mock+AI+Image';
+      //const imageUrl = ''; //In real scenario this will be the result of AI.
+      const mockImageUrl = Image.resolveAssetSource(MockImage).uri;
+
       await updateGenerationStatus(id, 'done', mockImageUrl);
+      const result = await getGenerationResult(id); 
+    if (result?.resultImageUrl) {
+      // setResultImage(result.resultImageUrl); ////In real scenario this will be the result of AI.
+      setResultImage(MockImage)
+    }
+
       setStatus('done');
+      console.log("status is now DONE");
     }, delay);
   };
 
@@ -70,7 +82,13 @@ export default function InputScreen() {
       <View style={styles.screen}>
         <View>
           <Text style={styles.headerTitle}>AI Logo</Text>
-          <StatusChip />
+          <StatusChip
+            status={status}
+            show={status === 'processing' || status === 'done'}
+            onPress={goToOutput}
+            resultImage={resultImage}
+
+          />
           <View style={styles.headerRow}>
             <Text style={styles.title}>Enter Your Prompt</Text>
             <TouchableOpacity onPress={handleSurpriseMe} style={styles.surpriseButton}>
@@ -78,7 +96,7 @@ export default function InputScreen() {
               <Text style={styles.surprise}>Surprise me</Text>
             </TouchableOpacity>
           </View>
-          
+
           <InputForm value={prompt}
             onChange={setPrompt}
             placeholder="A blue lion logo reading 'HEXA' in bold letters" />
@@ -112,10 +130,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 8,
-    paddingHorizontal:5,
+    paddingHorizontal: 5,
     width: 342,
     height: 25,
-    alignItems:'center',
+    alignItems: 'center',
   },
   title: {
     fontSize: 20,

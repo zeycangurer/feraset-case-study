@@ -13,5 +13,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-, "components/StatusChip.jsx", "components/OutputImage.jsx", "components/InputForm.jsx", "app/outputScreen.js", "app/index.js", "firebase/config.js", "utils/firestoreHelpers.js"  ]
+, "components/StatusChip.jsx", "components/OutputImage.jsx", "components/InputForm.jsx", "app/output.js", "app/index.js", "firebase/config.js", "utils/firestoreHelpers.js"  ]
 }

@@ -1,14 +1,48 @@
-import { View, Text, Image, StyleSheet } from 'react-native'
-import React from 'react'
+import { View, Text, Image, StyleSheet, TouchableOpacity, Animated, Easing } from 'react-native'
+import React, { useEffect, useRef } from 'react'
 import LoadingSpinner from '../assets/images/loading.png'
+import MockImage from '../assets/images/mockImage.jpg'
 import { LinearGradient } from 'expo-linear-gradient'
 import { BlurView } from 'expo-blur'
 
-const StatusChip = () => {
-    return (
+const StatusChip = ({ status = 'idle', onPress, show = false, resultImage }) => {
+    const rotateAnim = useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+        if (status === 'processing') {
+            Animated.loop(
+                Animated.timing(rotateAnim, {
+                    toValue: 1,
+                    duration: 1000,
+                    easing: Easing.linear,
+                    useNativeDriver: true,
+                })
+            ).start();
+        } else {
+            rotateAnim.stopAnimation();
+        }
+    }, [status]);
+
+    const spin = rotateAnim.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['0deg', '360deg'],
+    });
+
+    if (!show || status === 'idle') return null;
+
+    const isDone = status === 'done';
+    const Content = (
         <View style={styles.statusContainer}>
             <View style={styles.spinnerBox}>
-                <Image source={LoadingSpinner} style={styles.spinnerImage} />
+                {isDone ? (
+                    <Image source={resultImage} style={styles.mockImage} />
+                ) : (
+                    <Animated.Image
+                        source={LoadingSpinner}
+                        style={[styles.spinnerImage, { transform: [{ rotate: spin }] }]}
+                    />
+                )}
+
             </View>
             <LinearGradient
                 colors={['#943DFF', '#2938DC']}
@@ -16,15 +50,31 @@ const StatusChip = () => {
                 end={{ x: 0, y: 0 }}
                 style={styles.gradientWrapper}
             >
-                <BlurView intensity={10} tint="dark" style={styles.blurContainer}>
-                    <View style={styles.overlay} />
-                    <View style={styles.statusBox}>
-                        <Text style={styles.statusText}>Creating Your Design</Text>
-                        <Text style={styles.statusSubText}>Ready in 2 minutes</Text>
+                {isDone ? (
+                    <View style={styles.blurContainer}>
+                        <View style={styles.statusBox}>
+                            <Text style={styles.statusText}>Your Design is Ready!</Text>
+                            <Text style={[styles.statusSubText, {color:"#D4D4D8"}]}>Tap to see it.</Text>
+                        </View>
                     </View>
-                </BlurView>
+                ) : (
+                    <BlurView intensity={10} tint="dark" style={styles.blurContainer}>
+                        <View style={styles.overlay} />
+                        <View style={styles.statusBox}>
+                            <Text style={styles.statusText}>Creating Your Design</Text>
+                            <Text style={styles.statusSubText}>Ready in 2 minutes</Text>
+                        </View>
+                    </BlurView>
+                )}
             </LinearGradient>
         </View>
+    )
+    return isDone ? (
+        <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
+            {Content}
+        </TouchableOpacity>
+    ) : (
+        Content
     )
 }
 
@@ -34,7 +84,7 @@ const styles = StyleSheet.create({
     statusContainer: {
         // flex:1,
         flexDirection: 'row',
-        paddingBottom:12
+        paddingBottom: 12
     },
     spinnerBox: {
         backgroundColor: "#18181B",
@@ -50,9 +100,16 @@ const styles = StyleSheet.create({
         height: 37.69,
         resizeMode: 'contain',
     },
+    mockImage: {
+        width: 70,
+        height: 70,
+        borderTopLeftRadius: 16,
+        borderBottomLeftRadius: 16,
+        resizeMode: 'cover'
+    },
     statusBox: {
         zIndex: 1,
-        gap:2,
+        gap: 2,
     },
     statusText: {
         fontSize: 16,

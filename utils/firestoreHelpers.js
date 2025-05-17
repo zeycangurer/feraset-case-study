@@ -10,15 +10,21 @@ import { db } from '../firebase/config';
  * @returns {Promise<string>} - The document ID of the newly created request
  */
 export const createGenerationRequest = async (inputText, selectedStyle) => {
-  const docRef = await addDoc(collection(db, 'generations'), {
-    inputText,
-    selectedStyle,
-    status: 'processing',
-    resultImageUrl: '',
-    createdAt: serverTimestamp(),
-    updatedAt: serverTimestamp(),
-  });
-  return docRef.id;
+  try {
+    const docRef = await addDoc(collection(db, 'generations'), {
+      propmpt: inputText,
+      selectedStyle,
+      status: 'processing',
+      resultImageUrl: '',
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+    });
+    // console.log("Firestore doc created:", docRef.id);
+    return docRef.id;
+  } catch (error) {
+    console.error("Firestore create failed: ", error)
+  }
+
 };
 
 /**
@@ -30,12 +36,18 @@ export const createGenerationRequest = async (inputText, selectedStyle) => {
  * @param {string} [imageUrl] - Optional: the generated image URL (mock or real)
  */
 export const updateGenerationStatus = async (docId, status, imageUrl) => {
-  const docRef = doc(db, 'generations', docId);
-  await updateDoc(docRef, {
-    status,
-    resultImageUrl: imageUrl || '',
-    updatedAt: serverTimestamp(),
-  });
+  try {
+    const docRef = doc(db, 'generations', docId);
+    await updateDoc(docRef, {
+      status,
+      resultImageUrl: imageUrl || '',
+      updatedAt: serverTimestamp(),
+    });
+  } catch (error) {
+    console.error("Firestore update failed: ", error)
+
+  }
+
 };
 
 /**
@@ -45,7 +57,11 @@ export const updateGenerationStatus = async (docId, status, imageUrl) => {
  * @returns {Promise<Object|null>} - The document data if it exists, otherwise null
  */
 export const getGenerationResult = async (docId) => {
-  const docRef = doc(db, 'generations', docId);
-  const docSnap = await getDoc(docRef);
-  return docSnap.exists() ? docSnap.data() : null;
+  try {
+    const docRef = doc(db, 'generations', docId);
+    const docSnap = await getDoc(docRef);
+    return docSnap.exists() ? docSnap.data() : null;
+  } catch (error) {
+    console.error("Firestore get failed: ", error)
+  }
 };
