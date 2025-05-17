@@ -6,11 +6,13 @@ import { db } from '../firebase/config';
  * This simulates a prompt submission to an AI model.
  *
  * @param {string} inputText - The text prompt entered by the user
+ * @param {string} selectedStyle - The selected logo style
  * @returns {Promise<string>} - The document ID of the newly created request
  */
-export const createGenerationRequest = async (inputText) => {
+export const createGenerationRequest = async (inputText, selectedStyle) => {
   const docRef = await addDoc(collection(db, 'generations'), {
     inputText,
+    selectedStyle,
     status: 'processing',
     resultImageUrl: '',
     createdAt: serverTimestamp(),
