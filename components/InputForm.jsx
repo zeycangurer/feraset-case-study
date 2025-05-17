@@ -12,26 +12,29 @@ const InputForm = ({ value, onChange, maxLength = 500, placeholder = '' }) => {
         colors={['#943DFF', '#2938DC']}
         start={{ x: 1, y: 0 }}
         end={{ x: 0, y: 0 }}
+        // style={[styles.gradientWrapper, isFocused && styles.focused]}
         style={StyleSheet.absoluteFill}
-      />
-      <BlurView intensity={15} tint="dark" style={StyleSheet.absoluteFill}>
-        <View style={styles.overlay} />
-      </BlurView>
+      >
+        <BlurView intensity={15} tint="dark" style={StyleSheet.absoluteFill}>
+          <View style={styles.overlay} />
+        </BlurView>
+        <View style={styles.content}>
+          <TextInput
+            value={value}
+            onChangeText={onChange}
+            style={styles.input}
+            placeholder={placeholder}
+            placeholderTextColor="#71717A"
+            multiline
+            maxLength={maxLength}
+            textAlignVertical="top"
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+          />
 
-      <TextInput
-        value={value}
-        onChangeText={onChange}
-        style={styles.input}
-        placeholder={placeholder}
-        placeholderTextColor="#71717A"
-        multiline
-        maxLength={maxLength}
-        textAlignVertical="top"
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-      />
-
-      <Text style={styles.charCount}>{value.length}/{maxLength}</Text>
+          <Text style={styles.charCount}>{value.length}/{maxLength}</Text>
+        </View>
+      </LinearGradient>
     </View>
   );
 };
@@ -57,8 +60,9 @@ const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: '#27272A',
-    opacity: 0.7,
-    zIndex: -1,
+    opacity: 0.75,
+    // zIndex: 0,
+    // borderRadius: 16
   },
   input: {
     flex: 1,
@@ -71,4 +75,28 @@ const styles = StyleSheet.create({
     color: '#71717A',
     fontFamily: 'Manrope_400Regular',
   },
+  content: {
+    flex:1,
+    padding:12,
+    justifyContent:'space-between',
+    zIndex:1
+  }
+  // gradientWrapper: {
+  //   width: 342,
+  //   height: 175,
+  //   borderRadius: 16,
+  //   // justifyContent: 'space-between',
+  //   overflow: 'hidden',
+  //   // position: 'relative',
+  //   borderWidth: 1,
+  //   borderColor: 'transparent',
+  //   marginBottom: 20,
+  // },
+  // blurContainer: {
+  //   flex: 1,
+  //   borderRadius: 16,
+  //   justifyContent: 'space-between',
+  //   overflow: 'hidden',
+  //   padding: 12
+  // },
 });

@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
-import CreateIcon from '../assets/elements.png'
+import CreateIcon from '../assets/images/elements.png'
 
 const CreateButton = ({ onPress }) => {
     return (
