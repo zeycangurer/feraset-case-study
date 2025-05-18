@@ -69,16 +69,18 @@ export default function InputScreen() {
   };
 
   const goToOutput = () => {
-    if (docId) {
+    // if (docId) {
       router.push({
         pathname: '/output',
-        params: { id: docId },
+        params:{id:1234}
+        // params: { id: docId },
       });
-    }
+    // }
   };
 
   return (
     <BackgroundLayer>
+    <TouchableOpacity onPress={goToOutput}><Text>Git</Text></TouchableOpacity>
       <View style={styles.screen}>
         <View>
           <Text style={styles.headerTitle}>AI Logo</Text>

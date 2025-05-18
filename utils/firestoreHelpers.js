@@ -12,7 +12,7 @@ import { db } from '../firebase/config';
 export const createGenerationRequest = async (inputText, selectedStyle) => {
   try {
     const docRef = await addDoc(collection(db, 'generations'), {
-      propmpt: inputText,
+      prompt: inputText,
       selectedStyle,
       status: 'processing',
       resultImageUrl: '',
