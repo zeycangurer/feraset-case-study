@@ -17,11 +17,7 @@ const OutputScreen = () => {
       try {
         const result = await getGenerationResult(id);
         // console.log("Fetched result:", result);
-        setData(result || {
-          prompt: "A blue lion logo reading 'HEXA' in bold letters",
-          resultImageUrl: Image.resolveAssetSource(MockImage).uri,
-          selectedStyle: "Mock",
-        });
+        setData(result);
       } catch (error) {
         console.error("Failed to load result:", error);
       } finally {

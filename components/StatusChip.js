@@ -1,12 +1,14 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity, Animated, Easing } from 'react-native'
 import React, { useEffect, useRef } from 'react'
 import LoadingSpinner from '../assets/images/loading.png'
-import MockImage from '../assets/images/mockImage.jpg'
+// import MockImage from '../assets/images/mockImage.jpg'
 import { LinearGradient } from 'expo-linear-gradient'
 import { BlurView } from 'expo-blur'
+import AlertStatusChip from './AlertStatusChip'
 
 const StatusChip = ({ status = 'idle', onPress, show = false, resultImage }) => {
     const rotateAnim = useRef(new Animated.Value(0)).current;
+    const isError = status === 'error'
 
     useEffect(() => {
         if (status === 'processing') {
@@ -31,11 +33,14 @@ const StatusChip = ({ status = 'idle', onPress, show = false, resultImage }) => 
     if (!show || status === 'idle') return null;
 
     const isDone = status === 'done';
+
     const Content = (
         <View style={styles.statusContainer}>
             <View style={styles.spinnerBox}>
                 {isDone ? (
                     <Image source={resultImage} style={styles.mockImage} />
+                ) : isError ? (
+                    <AlertStatusChip image={resultImage}/>
                 ) : (
                     <Animated.Image
                         source={LoadingSpinner}
@@ -54,7 +59,14 @@ const StatusChip = ({ status = 'idle', onPress, show = false, resultImage }) => 
                     <View style={styles.blurContainer}>
                         <View style={styles.statusBox}>
                             <Text style={styles.statusText}>Your Design is Ready!</Text>
-                            <Text style={[styles.statusSubText, {color:"#D4D4D8"}]}>Tap to see it.</Text>
+                            <Text style={[styles.statusSubText, { color: "#D4D4D8" }]}>Tap to see it.</Text>
+                        </View>
+                    </View>
+                ) : isError ? (
+                    <View style={[styles.blurContainer, { backgroundColor: '#EF4444' }]}>
+                        <View style={styles.statusBox}>
+                            <Text style={styles.statusText}>Oops, something went wrong!</Text>
+                            <Text style={[styles.statusSubText, { color: "#D4D4D8" }]}>Click to try again.</Text>
                         </View>
                     </View>
                 ) : (

@@ -46,47 +46,49 @@ export default function InputScreen() {
 
     setStatus('processing');
     setResultImage(null);
+    try {
+      const id = await createGenerationRequest(prompt, selectedStyle);
+      setDocId(id);
 
-    const id = await createGenerationRequest(prompt, selectedStyle);
-    setDocId(id);
+      const delay = Math.floor(Math.random() * 30 + 30) * 1000;
 
-    const delay = Math.floor(Math.random() * 30 + 30) * 1000;
+      setTimeout(async () => {
+        //const imageUrl = ''; //In real scenario this will be the result of AI.
+        const mockImageUrl = Image.resolveAssetSource(MockImage).uri;
 
-    setTimeout(async () => {
-      //const imageUrl = ''; //In real scenario this will be the result of AI.
-      const mockImageUrl = Image.resolveAssetSource(MockImage).uri;
+        await updateGenerationStatus(id, 'done', mockImageUrl);
+        const result = await getGenerationResult(id);
+        if (result?.resultImageUrl) {
+          // setResultImage(result.resultImageUrl); ////In real scenario this will be the result of AI.
+          setResultImage(MockImage)
+        }
 
-      await updateGenerationStatus(id, 'done', mockImageUrl);
-      const result = await getGenerationResult(id); 
-    if (result?.resultImageUrl) {
-      // setResultImage(result.resultImageUrl); ////In real scenario this will be the result of AI.
-      setResultImage(MockImage)
+        setStatus('done');
+        console.log("status is now DONE");
+      }, delay);
+    } catch (error) {
+      console.error('Error during generation:', error);
+      setStatus('error');
     }
-
-      setStatus('done');
-      console.log("status is now DONE");
-    }, delay);
   };
 
   const goToOutput = () => {
-    // if (docId) {
+    if (docId) {
       router.push({
         pathname: '/output',
-        params:{id:1234}
-        // params: { id: docId },
+        params: { id: docId },
       });
-    // }
+    }
   };
 
   return (
     <BackgroundLayer>
-    <TouchableOpacity onPress={goToOutput}><Text>Git</Text></TouchableOpacity>
       <View style={styles.screen}>
         <View>
           <Text style={styles.headerTitle}>AI Logo</Text>
           <StatusChip
             status={status}
-            show={status === 'processing' || status === 'done'}
+            show={status === 'processing' || status === 'done' || status === 'error'}
             onPress={goToOutput}
             resultImage={resultImage}
 
