@@ -13,27 +13,27 @@ const OutputPrompt = ({ data }) => {
   }
   return (
     <View style={styles.promptContainer}>
-      <LinearGradient
+      {/* <LinearGradient
         colors={["#943DFF", "#2938DC"]}
         start={{ x: 1, y: 0 }}
         end={{ x: 0, y: 0 }}
         style={styles.gradientWrapper}
-      >
-        <BlurView intensity={15} tint="dark" style={styles.blurContainer}>
-          <View style={styles.overlay} />
-          <View style={styles.promptHeader}>
-            <Text style={styles.promptTitle}>Prompt</Text>
-            <TouchableOpacity style={styles.copyContainer} onPress={handleCopy}>
-              <Image source={CopyImage} />
-              <Text style={styles.copyStyle}>Copy</Text>
-            </TouchableOpacity>
-          </View>
-          <Text style={styles.promptText}>{data.prompt}</Text>
-          <View style={styles.styleContainer}>
-            <Text style={styles.styleText}>{data.selectedStyle}</Text>
-          </View>
-        </BlurView>
-      </LinearGradient>
+      > */}
+      <BlurView intensity={15} tint="dark" style={styles.blurContainer}>
+        <View style={styles.overlay} />
+        <View style={styles.promptHeader}>
+          <Text style={styles.promptTitle}>Prompt</Text>
+          <TouchableOpacity style={styles.copyContainer} onPress={handleCopy}>
+            <Image source={CopyImage} />
+            <Text style={styles.copyStyle}>Copy</Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.promptText}>{data.prompt}</Text>
+        <View style={styles.styleContainer}>
+          <Text style={styles.styleText}>{data.selectedStyle}</Text>
+        </View>
+      </BlurView>
+      {/* </LinearGradient> */}
     </View>
   )
 }
@@ -49,15 +49,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#27272A",
     position: 'relative'
   },
-  gradientWrapper: {
-    ...StyleSheet.absoluteFillObject,
-    borderRadius: 12,
-    overflow: 'hidden',
-  },
+  // gradientWrapper: {
+  //   ...StyleSheet.absoluteFillObject,
+  //   borderRadius: 12,
+  //   overflow: 'hidden',
+  // },
   blurContainer: {
     ...StyleSheet.absoluteFillObject,
     borderRadius: 12,
     padding: 12,
+    overflow: 'hidden',
     // justifyContent: 'space-between',
   },
   overlay: {
@@ -70,9 +71,9 @@ const styles = StyleSheet.create({
   promptHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width:318,
-    height:20,
-    marginBottom:5
+    width: 318,
+    height: 20,
+    marginBottom: 5
   },
   promptTitle: {
     fontSize: 15,

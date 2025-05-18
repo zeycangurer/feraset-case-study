@@ -40,7 +40,7 @@ const StatusChip = ({ status = 'idle', onPress, show = false, resultImage }) => 
                 {isDone ? (
                     <Image source={resultImage} style={styles.mockImage} />
                 ) : isError ? (
-                    <AlertStatusChip image={resultImage}/>
+                    <AlertStatusChip image={resultImage} />
                 ) : (
                     <Animated.Image
                         source={LoadingSpinner}
@@ -49,36 +49,38 @@ const StatusChip = ({ status = 'idle', onPress, show = false, resultImage }) => 
                 )}
 
             </View>
-            <LinearGradient
-                colors={['#943DFF', '#2938DC']}
-                start={{ x: 1, y: 0 }}
-                end={{ x: 0, y: 0 }}
-                style={styles.gradientWrapper}
-            >
-                {isDone ? (
+
+            {isDone ? (
+                <LinearGradient
+                    colors={['#943DFF', '#2938DC']}
+                    start={{ x: 1, y: 0 }}
+                    end={{ x: 0, y: 0 }}
+                    style={styles.gradientWrapper}
+                >
                     <View style={styles.blurContainer}>
                         <View style={styles.statusBox}>
                             <Text style={styles.statusText}>Your Design is Ready!</Text>
                             <Text style={[styles.statusSubText, { color: "#D4D4D8" }]}>Tap to see it.</Text>
                         </View>
                     </View>
-                ) : isError ? (
-                    <View style={[styles.blurContainer, { backgroundColor: '#EF4444' }]}>
-                        <View style={styles.statusBox}>
-                            <Text style={styles.statusText}>Oops, something went wrong!</Text>
-                            <Text style={[styles.statusSubText, { color: "#D4D4D8" }]}>Click to try again.</Text>
-                        </View>
+                </LinearGradient>
+
+            ) : isError ? (
+                <View style={[styles.blurContainer, { backgroundColor: '#EF4444' }]}>
+                    <View style={styles.statusBox}>
+                        <Text style={styles.statusText}>Oops, something went wrong!</Text>
+                        <Text style={[styles.statusSubText, { color: "#D4D4D8" }]}>Click to try again.</Text>
                     </View>
-                ) : (
-                    <BlurView intensity={10} tint="dark" style={styles.blurContainer}>
-                        <View style={styles.overlay} />
-                        <View style={styles.statusBox}>
-                            <Text style={styles.statusText}>Creating Your Design</Text>
-                            <Text style={styles.statusSubText}>Ready in 2 minutes</Text>
-                        </View>
-                    </BlurView>
-                )}
-            </LinearGradient>
+                </View>
+            ) : (
+                <BlurView intensity={10} tint="dark" style={styles.blurContainer}>
+                    <View style={styles.overlay} />
+                    <View style={styles.statusBox}>
+                        <Text style={styles.statusText}>Creating Your Design</Text>
+                        <Text style={styles.statusSubText}>Ready in 2 minutes</Text>
+                    </View>
+                </BlurView>
+            )}
         </View>
     )
     return isDone ? (
@@ -99,7 +101,7 @@ const styles = StyleSheet.create({
         paddingBottom: 12
     },
     spinnerBox: {
-        backgroundColor: "#18181B",
+        backgroundColor: "rgba(24, 24, 27, 1)",
         width: 70,
         height: 70,
         borderTopLeftRadius: 16,

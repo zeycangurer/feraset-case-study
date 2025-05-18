@@ -8,16 +8,8 @@ const InputForm = ({ value, onChange, maxLength = 500, placeholder = '' }) => {
 
   return (
     <View style={[styles.wrapper, isFocused && styles.focused]}>
-      <LinearGradient
-        colors={['#943DFF', '#2938DC']}
-        start={{ x: 1, y: 0 }}
-        end={{ x: 0, y: 0 }}
-        // style={[styles.gradientWrapper, isFocused && styles.focused]}
-        style={StyleSheet.absoluteFill}
-      >
-        <BlurView intensity={15} tint="dark" style={StyleSheet.absoluteFill}>
-          <View style={styles.overlay} />
-        </BlurView>
+      <BlurView intensity={15} tint="dark" style={StyleSheet.absoluteFill}>
+        <View style={styles.overlay} />
         <View style={styles.content}>
           <TextInput
             value={value}
@@ -34,7 +26,7 @@ const InputForm = ({ value, onChange, maxLength = 500, placeholder = '' }) => {
 
           <Text style={styles.charCount}>{value.length}/{maxLength}</Text>
         </View>
-      </LinearGradient>
+      </BlurView>
     </View>
   );
 };
@@ -59,8 +51,8 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: '#27272A',
-    opacity: 0.75,
+    backgroundColor: 'rgba(39, 39, 42, 1)',
+    opacity: 1,
     // zIndex: 0,
     // borderRadius: 16
   },
@@ -76,11 +68,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Manrope_400Regular',
   },
   content: {
-    flex:1,
-    padding:12,
-    justifyContent:'space-between',
-    zIndex:1
-  }
+    flex: 1,
+    padding: 12,
+    justifyContent: 'space-between',
+    zIndex: 1
+  },
   // gradientWrapper: {
   //   width: 342,
   //   height: 175,
