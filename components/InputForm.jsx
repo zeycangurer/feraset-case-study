@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { BlurView } from 'expo-blur';
 
 const InputForm = ({ value, onChange, maxLength = 500, placeholder = '' }) => {
@@ -53,8 +52,6 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(39, 39, 42, 1)',
     opacity: 1,
-    // zIndex: 0,
-    // borderRadius: 16
   },
   input: {
     flex: 1,
@@ -73,22 +70,4 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     zIndex: 1
   },
-  // gradientWrapper: {
-  //   width: 342,
-  //   height: 175,
-  //   borderRadius: 16,
-  //   // justifyContent: 'space-between',
-  //   overflow: 'hidden',
-  //   // position: 'relative',
-  //   borderWidth: 1,
-  //   borderColor: 'transparent',
-  //   marginBottom: 20,
-  // },
-  // blurContainer: {
-  //   flex: 1,
-  //   borderRadius: 16,
-  //   justifyContent: 'space-between',
-  //   overflow: 'hidden',
-  //   padding: 12
-  // },
 });

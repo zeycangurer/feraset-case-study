@@ -144,40 +144,6 @@ const styles = StyleSheet.create({
     color: '#FAFAFA',
     fontFamily: 'Manrope_800ExtraBold'
   },
-  promptWrapper: {
-    width: 342,
-    height: 175,
-    borderRadius: 16,
-    padding: 12,
-    justifyContent: 'space-between',
-    overflow: 'hidden',
-    marginBottom: 12,
-    position: 'relative',
-  },
-  baseBackground: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: '#27272A',
-    zIndex: -1,
-  },
-  input: {
-    flex: 1,
-    color: '#fff',
-    fontSize: 16,
-    fontFamily: 'Manrope_400Regular',
-    textAlignVertical: 'top',
-  },
-  charCountInside: {
-    color: '#CFCFCF',
-    fontSize: 12,
-    fontFamily: 'Manrope_400Regular',
-  },
-
-  subheading: {
-    color: '#fff',
-    fontSize: 16,
-    marginBottom: 10,
-    fontWeight: '500',
-  },
   statusChip: {
     backgroundColor: '#fff3',
     padding: 14,
@@ -185,13 +151,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 32,
   },
-  doneChip: {
-    backgroundColor: '#C26CFF',
-    padding: 14,
-    borderRadius: 30,
-    alignItems: 'center',
-    marginTop: 32,
-  },
+
   statusText: {
     color: '#fff',
     fontWeight: '600',

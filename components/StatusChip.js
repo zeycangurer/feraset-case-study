@@ -1,7 +1,6 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity, Animated, Easing } from 'react-native'
 import React, { useEffect, useRef } from 'react'
 import LoadingSpinner from '../assets/images/loading.png'
-// import MockImage from '../assets/images/mockImage.jpg'
 import { LinearGradient } from 'expo-linear-gradient'
 import { BlurView } from 'expo-blur'
 import AlertStatusChip from './AlertStatusChip'
@@ -96,7 +95,6 @@ export default StatusChip
 
 const styles = StyleSheet.create({
     statusContainer: {
-        // flex:1,
         flexDirection: 'row',
         paddingBottom: 12
     },
