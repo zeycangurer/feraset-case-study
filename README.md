@@ -1,50 +1,74 @@
-# Welcome to your Expo app 👋
+# 🧠 Hexa - AI Logo & Art Generator Demo
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This project is a mobile app that allows users to generate logos using AI based on text prompts. It offers an intuitive user experience with modern UI components and clean design aesthetics.
 
-## Get started
+## 🚀 Features
 
-1. Install dependencies
+- 🎨 Generate logos by entering a prompt
+- 🎲 "Surprise Me" button to insert a random sample prompt
+- 🧩 Logo style selection (No Style, Monogram, Abstract, Mascot)
+- 📷 Output screen to display the generated logo
+- 🔄 Real-time status chip (Creating / Done)
+- 📋 Ability to copy the entered prompt
+- 🟣 Modern UI with Linear Gradient + BlurView effects
 
-   ```bash
-   npm install
-   ```
+## 🛠️ Technologies Used
 
-2. Start the app
+- React Native (Expo)
+- Firebase Firestore
+- Expo Router
+- Expo Blur / Linear Gradient
+- Manrope Font
+- Clipboard (expo-clipboard)
+- Mock data and image simulation
 
-   ```bash
-   npx expo start
-   ```
+## 📁 Project Structure
 
-In the output, you'll find options to open the app in a
+```
+feraset-case-study/
+├── app/
+│   ├── _layout.tsx
+│   ├── index.js
+│   ├── output.js
+├── assets/
+│   ├── icons/
+│   ├── images/
+├── components/
+│   ├── AlertStatusChip.js
+│   ├── BackgroundLayer.js
+│   ├── CreateButton.js
+│   ├── InputForm.js
+│   ├── OutputPrompt.js
+│   ├── StatusChip.js
+│   ├── StyleCard.js
+├── firebase/
+│   ├── config.js
+└── utils/
+    └── firestoreHelpers.js
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🔧 Installation
 
-## Learn more
+```
+git clone https://github.com/yourusername/feraset-case-study.git
+cd feraset-case-study
+npm install
+npx expo start
+```
+Note: Make sure to configure your Firebase connection in firebase/config.js.
 
-To learn more about developing your project with Expo, look at the following resources:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## 📱 How to Use
 
-## Join the community
+1. Open the app.
+2. Type a description for your logo prompt (e.g. "A blue lion logo reading 'HEXA'").
+3. (Optional) Tap **Surprise Me** to autofill a random example.
+4. Select a style from the logo style cards.
+5. Tap **Create** to start the logo generation process.
+6. A status chip will indicate the process state:
 
-Join our community of developers creating universal apps.
+   * *Creating Your Design*: animated loader
+   * *Your Design is Ready*: tap to view the result
+7. On the output screen, you will see the final image and can copy the prompt text.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
